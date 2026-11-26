@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, AlertTriangle } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 import { useGameStore } from '../../stores/useGameStore';
 
 export const CompatibilityPage: React.FC = () => {

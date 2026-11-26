@@ -2,3 +2,6 @@ packages:
   - 'apps/*'
   - 'crates/*'
   - 'platform/*'
+
+allowBuilds:
+  esbuild: true

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Cpu, Gauge, Zap } from 'lucide-react';
 
 export const PerformancePage: React.FC = () => {
   const [profile, setProfile] = useState<'Eco' | 'Balanced' | 'Performance' | 'Turbo'>('Performance');

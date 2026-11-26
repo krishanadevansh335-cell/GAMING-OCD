@@ -13,7 +13,7 @@ interface GameState {
   launchCurrentGame: (id: string) => Promise<void>;
 }
 
-export const useGameStore = create<GameState>((set, get) => ({
+export const useGameStore = create<GameState>((set) => ({
   games: [],
   selectedGame: null,
   activeTab: 'library',
