@@ -1,0 +1,19 @@
+{
+  "name": "gaming-ocd-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Gaming Operating Center & Director Monorepo",
+  "packageManager": "pnpm@12.23.0",
+  "scripts": {
+    "dev": "pnpm --filter desktop dev",
+    "build": "pnpm --filter desktop build",
+    "tauri": "pnpm --filter desktop tauri",
+    "tauri:dev": "pnpm --filter desktop tauri dev",
+    "tauri:build": "pnpm --filter desktop tauri build",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0"
+  }
+}

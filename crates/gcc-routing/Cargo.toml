@@ -1,0 +1,11 @@
+[package]
+name = "gcc-routing"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[dependencies]
+gcc-core = { path = "../gcc-core" }
+serde = { workspace = true }
+serde_json = { workspace = true }

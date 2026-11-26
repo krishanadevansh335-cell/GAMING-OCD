@@ -1,0 +1,24 @@
+[
+  {
+    "id": "steam_1091500",
+    "title": "Cyberpunk 2077",
+    "platform": "Steam",
+    "executable": "bin/x64/Cyberpunk2077.exe",
+    "compatibility": {
+      "proton_tier": "Platinum",
+      "anticheat": "None",
+      "preferred_os": "Any"
+    }
+  },
+  {
+    "id": "steam_1245620",
+    "title": "Elden Ring",
+    "platform": "Steam",
+    "executable": "eldenring.exe",
+    "compatibility": {
+      "proton_tier": "Platinum",
+      "anticheat": "Easy Anti-Cheat (EAC Linux Runtime verified)",
+      "preferred_os": "Bazzite"
+    }
+  }
+]
