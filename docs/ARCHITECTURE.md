@@ -1,24 +1,21 @@
-# System Architecture & Technical Specifications
+# Architecture
 
-GAMING-OCD orchestrates dual-boot gaming on x86_64 systems running Windows 11 and Bazzite Linux.
+## Desktop
 
-## Layer Decomposition
+`apps/desktop` contains a React + TypeScript + Vite frontend styled with Tailwind and a Tauri 2 Rust shell. The navigation state stays in the frontend. `src-tauri/src/commands` exposes a single version command; no feature command is registered. Tauri capabilities are limited to core and updater APIs.
 
-1. **Frontend Presentation (`apps/desktop/src`)**
-   - React 18 / TypeScript, responsive to 16:9 & 16:10 handheld / TV ratios.
-   - Designed for gamepad navigation (D-pad, shoulder triggers).
-   - Tauri bridge decoupling UI logic from native platform commands.
+## Local data
 
-2. **Tauri 2 Native Bridge (`apps/desktop/src-tauri`)**
-   - High-throughput asynchronous IPC invocations.
-   - Security permissions enforced through `capabilities/default.json`.
+`crates/gcc-database` provides an async SQLite pool constructor with create-if-missing enabled. Tauri initializes it under the app data directory and manages the pool. The only initial tables store generic application metadata and settings; migrations do not drop or replace user data.
 
-3. **Core Rust Engine (`crates/`)**
-   - `gcc-core`: Common data types and error specifications.
-   - `gcc-library`: Manifest parsing for Steam VDF files and Heroic installations.
-   - `gcc-launcher`: Process spawning, game mode orchestration, and telemetry tracking.
-   - `gcc-routing`: UEFI next-boot target programming.
-   - `gcc-compatibility`: Database querying for ProtonDB ratings and anti-cheat compatibility.
+## Central service
 
-4. **Platform Adapters (`platform/`)**
-   - Isolated platform adapters preventing execution of platform-incompatible system calls.
+`infrastructure/api` is an independently containerized Rust HTTP service with only a health endpoint. `.env.example` reserves a PostgreSQL URL for future service needs; the current API does not connect to PostgreSQL or store application features. End-user desktops do not need Docker.
+
+## Updates and distribution
+
+Tauri updater support is registered, while its owner, repository and public key remain placeholders. Signing secrets are supplied through a protected GitHub environment. The Windows workflow makes draft releases only. Desktop updates do not depend on the Docker service.
+
+## Boundaries
+
+Game integrations, compatibility, audio, capture, social, system metrics, game mode, boot routing and actual update UX remain unspecified. UI destinations communicate that these are reserved; no operational behavior is inferred.

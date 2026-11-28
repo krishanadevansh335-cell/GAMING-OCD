@@ -1,0 +1,75 @@
+:root {
+  /* Reference-Matched Forest Crimson Palette */
+  --gcc-charcoal: #0b0e0d;
+  --gcc-deep-charcoal: #121715;
+  --gcc-surface-elevated: #171e1b;
+  --gcc-dark-forest: #0e2419;
+  --gcc-forest: #145a36;
+  --gcc-emerald: #20a66a;
+  --gcc-emerald-bright: #25c47a;
+  --gcc-crimson: #dc2638;
+  --gcc-deep-crimson: #941c2c;
+  --gcc-soft-white: #eef2ef;
+  --gcc-muted-grey: #9aa59e;
+  --gcc-border-grey: #242d28;
+  --gcc-disabled-grey: #58615c;
+
+  /* Semantic Aliases */
+  --bg-app: var(--gcc-charcoal);
+  --bg-surface: var(--gcc-deep-charcoal);
+  --bg-forest: var(--gcc-dark-forest);
+  --accent-primary: var(--gcc-forest);
+  --accent-highlight: var(--gcc-emerald);
+  --accent-secondary: var(--gcc-crimson);
+  --accent-secondary-dark: var(--gcc-deep-crimson);
+  --text-primary: var(--gcc-soft-white);
+  --text-secondary: var(--gcc-muted-grey);
+  --text-disabled: var(--gcc-disabled-grey);
+  --border-subtle: var(--gcc-border-grey);
+
+  /* Gradients */
+  --gradient-hero: linear-gradient(120deg, #0b0e0d 0%, #0e2419 55%, #145a36 100%);
+  --gradient-forest: linear-gradient(90deg, #1ea866 0%, #145a36 100%);
+  --gradient-crimson: linear-gradient(180deg, #dc2638 0%, #941c2c 100%);
+  --ambient-green: radial-gradient(circle, rgba(32, 166, 106, 0.22), transparent 68%);
+  --ambient-red: radial-gradient(circle, rgba(220, 38, 56, 0.22), transparent 68%);
+
+  /* Typography */
+  --font-display: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
+  --font-sans: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', Consolas, monospace;
+
+  /* Layout & 4px Spacing System */
+  --sidebar-expanded: 248px;
+  --sidebar-collapsed: 76px;
+  --topbar-height: 64px;
+  --radius-card: 14px;
+  --radius-modal: 16px;
+  --radius-hero: 20px;
+
+  /* Motion */
+  --ease-gcc: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --duration-fast: 180ms;
+  --duration-sidebar: 300ms;
+  --duration-page: 360ms;
+  --duration-hero: 650ms;
+
+  /* Shadows */
+  --shadow-card: 0 10px 28px rgba(0, 0, 0, 0.42);
+  --shadow-elevated: 0 20px 52px rgba(0, 0, 0, 0.6);
+  --glow-forest: 0 0 24px rgba(32, 166, 106, 0.22);
+  --glow-crimson: 0 0 24px rgba(220, 38, 56, 0.22);
+}
+
+[data-theme='deep-forest'] {
+  --bg-app: #080d0a;
+  --bg-surface: #0f1b15;
+  --gcc-border-grey: #1f3328;
+}
+
+[data-theme='high-contrast'] {
+  --bg-app: #070908;
+  --bg-surface: #121815;
+  --gcc-border-grey: #3f4f46;
+  --gcc-muted-grey: #c0cbc4;
+}

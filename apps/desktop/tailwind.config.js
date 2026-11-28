@@ -4,13 +4,32 @@ export default {
   theme: {
     extend: {
       colors: {
-        gaming: {
-          accent: "#00f0ff",
-          purple: "#7928ca",
-          card: "#12131a",
-          border: "#1f2233",
-          hover: "#252a3d",
+        gcc: {
+          charcoal: "#111413",
+          "deep-charcoal": "#1C2420",
+          "dark-forest": "#10291D",
+          forest: "#145A36",
+          emerald: "#20A66A",
+          crimson: "#DC2638",
+          "deep-crimson": "#941C2C",
+          white: "#E9EFEB",
+          muted: "#A2ADA6",
+          border: "#303A33",
+          disabled: "#626B65",
         },
+      },
+      fontFamily: {
+        display: ["'Space Grotesk'", "'Segoe UI'", "sans-serif"],
+        sans: ["'Inter'", "'Segoe UI'", "sans-serif"],
+        mono: ["'JetBrains Mono'", "Consolas", "monospace"],
+      },
+      borderRadius: {
+        card: "14px",
+        modal: "16px",
+        hero: "20px",
+      },
+      transitionTimingFunction: {
+        gcc: "cubic-bezier(0.2, 0.8, 0.2, 1)",
       },
     },
   },

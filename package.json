@@ -1,8 +1,8 @@
 {
-  "name": "gaming-ocd-workspace",
-  "version": "0.1.0",
+  "name": "gcc-workspace",
+  "version": "0.0.1",
   "private": true,
-  "description": "Gaming Operating Center & Director Monorepo",
+  "description": "Gaming Control Center desktop foundation",
   "packageManager": "pnpm@12.23.0",
   "scripts": {
     "dev": "pnpm --filter desktop dev",
@@ -11,7 +11,7 @@
     "tauri:dev": "pnpm --filter desktop tauri dev",
     "tauri:build": "pnpm --filter desktop tauri build",
     "lint": "pnpm -r lint",
-    "test": "pnpm -r test"
+    "test": "cargo test --workspace"
   },
   "devDependencies": {
     "typescript": "^5.7.0"

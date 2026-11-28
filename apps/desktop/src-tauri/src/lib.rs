@@ -1,15 +1,23 @@
 mod commands;
+mod configuration;
+mod database;
+mod errors;
+mod services;
+mod updater;
+use tauri::Manager;
 
 pub fn run() {
     tauri::Builder::default()
-        .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![
-            commands::system::get_system_summary,
-            commands::games::list_games,
-            commands::games::launch_game_by_id,
-            commands::routing::get_current_os,
-            commands::routing::request_os_reboot,
-        ])
+        .plugin(tauri_plugin_process::init())
+        .plugin(tauri_plugin_updater::Builder::new().build())
+        .setup(|app| {
+            let database_path = app.path().app_data_dir()?.join("gcc.sqlite3");
+            let pool = tauri::async_runtime::block_on(gcc_database::open_database(&database_path))
+                .map_err(|error| std::io::Error::other(error.to_string()))?;
+            app.manage(pool);
+            Ok(())
+        })
+        .invoke_handler(tauri::generate_handler![commands::app_version])
         .run(tauri::generate_context!())
-        .expect("error while running GAMING-OCD desktop application");
+        .expect("failed to run Gaming Control Center");
 }

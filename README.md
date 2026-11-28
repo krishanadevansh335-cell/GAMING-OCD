@@ -1,65 +1,51 @@
-# GAMING-OCD
+# Gaming Control Center (GCC)
 
-**Gaming Operating Center & Director (GAMING-OCD)** is a cross-platform gaming control center engineered for dual-boot and hybrid gaming environments, specifically bridging **Windows** and **Bazzite Linux** (SteamOS-like distributions).
+**Foundation version:** `0.0.01`
+**Status:** Initial Windows desktop foundation / prototype
 
-## Architecture Overview
+GCC is a Windows desktop application built with React, TypeScript, Tailwind CSS, Tauri 2 and Rust. This release provides the application shell and reserved destinations. Game discovery, launch, social, audio, capture, performance, downloads, compatibility and OS routing are not implemented.
 
-GAMING-OCD is structured as a modular monorepo leveraging:
-- **Desktop Frontend (`apps/desktop`)**: React, TypeScript, Tailwind CSS, Lucide icons, and gamepad-first navigation.
-- **Desktop Native Shell (`apps/desktop/src-tauri`)**: Tauri 2 application runtime with secure IPC commands.
-- **Application Engine (`crates/`)**: Modular Rust crates covering catalog indexing, compatibility checks, telemetry, and game launching.
-- **Platform Layers (`platform/`)**: Dedicated platform abstraction adapters for Windows and Linux to prevent cross-platform contamination.
+## Requirements
 
-```
-GAMING-OCD/
-├── apps/
-│   └── desktop/               # React + TypeScript + Tauri 2 UI
-├── crates/                    # Shared core business logic (Rust)
-│   ├── gcc-core/              # Core domain models and errors
-│   ├── gcc-database/          # Persistent data store and cache
-│   ├── gcc-library/           # Game scanner (Steam, Heroic, etc.)
-│   ├── gcc-launcher/          # Execution lifecycle manager
-│   ├── gcc-compatibility/     # ProtonDB and anticheat records
-│   ├── gcc-routing/           # Windows <-> Bazzite reboot orchestrator
-│   ├── gcc-telemetry/         # System metrics and sensor reader
-│   └── gcc-game-mode/         # Performance profiles and process tuning
-├── platform/                  # OS-specific low-level drivers
-│   ├── windows/               # Win32 / BCD / Power / GameBar integrations
-│   └── linux/                 # systemd-boot / GameScope / power-profiles
-├── data/                      # Game catalogs and compatibility schemas
-├── docs/                      # Architectural specifications and manuals
-└── .github/                   # Continuous integration workflows
-```
+- Windows 10/11 (Windows 11 is the primary target)
+- Node.js 20 or later and pnpm 12.23.0
+- Rust stable with the MSVC C++ build tools and WebView2
 
-## Milestone Roadmap
+## Run
 
-1. **Foundation**: Monorepo orchestration, Tauri 2 backend, React frontend shell.
-2. **Interface**: Fullscreen gamepad-first navigation, library browser, and quick actions.
-3. **Detection**: Steam and Heroic installed title discovery.
-4. **Launch Engine**: Safe launch wrapper with environment validation.
-5. **Compatibility Matrix**: ProtonDB status, anticheat compatibility indicators.
-6. **OS Routing**: Verified, non-destructive reboot handoff between Windows and Bazzite Linux.
-7. **Game Mode**: Reversible power profile switching and process priority tuning.
-8. **Integrations**: Discord Rich Presence, audio sink routing, overlay hooks.
-9. **Distribution**: Windows MSI/NSIS and Linux AppImage/RPM packaging.
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js (v20+) & `pnpm`
-- Rust (MSRV 1.78+)
-- Platform build dependencies (MSVC toolchain on Windows; WebKit2GTK on Linux)
-
-### Development
-
-```bash
-# Install frontend dependencies
+```powershell
 pnpm install
-
-# Run frontend in browser preview mode
-pnpm --filter desktop dev
-
-# Launch desktop app with Tauri 2
-pnpm --filter desktop tauri dev
+pnpm --filter desktop dev       # Browser preview
+pnpm --filter desktop tauri dev # Windows desktop app
+pnpm --filter desktop build     # TypeScript check + frontend bundle
+cargo check --workspace
 ```
+
+## Project layout
+
+- `apps/desktop`: React application and Tauri shell
+- `crates/gcc-database`: SQLite connection and minimal metadata/settings schema
+- `crates/`: reserved modular Rust workspace boundaries from the prior repository foundation
+- `platform/`: reserved platform adapter boundaries
+- `infrastructure/`: separate central API container foundation; not needed on desktop
+- `.github/workflows/release-windows.yml`: draft-only Windows release pipeline
+- `docs/`: architecture, development and release procedures
+
+## Implemented state
+
+| Area | State |
+|---|---|
+| React shell, Forest Crimson design system, 9 pages | Implemented; `tsc --noEmit` and `vite build` verified |
+| Feature pages & telemetry | Honest visual placeholders only (no fake data) |
+| Local UI preferences | Implemented via Zustand (theme, sidebar, reduced motion) |
+| Tauri 2 window and narrow version IPC | Implemented; Windows packaging pending |
+| SQLite startup and minimal schema | Implemented; migration initialization is non-destructive |
+| Tauri updater registration | Configured with endpoint/key placeholders; signing/release unverified |
+| GitHub release workflow | Draft configuration; not run |
+| Docker API health foundation | Source/configuration only; not built |
+
+## Version procedure
+
+The requested display/release identifier is `0.0.01` (see `VERSION` and Git tag `v0.0.01`). Package manifests use valid SemVer `0.0.1`, because SemVer rejects leading zeroes in numeric components. Keep the display identifier and manifest version aligned using this documented normalization.
+
+See [DEVELOPMENT.md](docs/DEVELOPMENT.md), [RELEASE.md](docs/RELEASE.md), and [ARCHITECTURE.md](docs/ARCHITECTURE.md).

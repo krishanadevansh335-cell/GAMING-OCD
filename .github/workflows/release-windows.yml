@@ -1,0 +1,46 @@
+name: Draft Windows Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    environment: release
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 12.23.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Install frontend dependencies
+        run: pnpm install --no-frozen-lockfile
+      - name: Frontend type check and build
+        run: pnpm --filter desktop build
+      - name: Rust checks
+        run: cargo test --workspace
+      - name: Build signed Tauri bundles
+        uses: tauri-apps/tauri-action@action-v1.0.0
+        env:
+          # Fine-grained token scoped to GAMING-OCD-Releases (Contents: write).
+          GITHUB_TOKEN: ${{ secrets.GCC_RELEASES_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: GCC ${{ github.ref_name }}
+          releaseDraft: true
+          releaseBody: Signed GCC Windows installer and updater metadata.
+          owner: krishanadevansh335-cell
+          repo: GAMING-OCD-Releases
+          releaseCommitish: main
+          projectPath: apps/desktop
+          args: --bundles nsis

@@ -1,37 +1,52 @@
-import React, { useEffect } from 'react';
-import { Shell } from '../components/layout/Shell';
-import { useGameStore } from '../stores/useGameStore';
-import { HomePage } from '../pages/Home/HomePage';
-import { LibraryPage } from '../pages/Library/LibraryPage';
-import { CompatibilityPage } from '../pages/Compatibility/CompatibilityPage';
-import { PerformancePage } from '../pages/Performance/PerformancePage';
-import { SettingsPage } from '../pages/Settings/SettingsPage';
+import { AnimatePresence } from 'motion/react';
+import { MotionProvider } from './providers/MotionProvider';
+import { AppShell } from '../components/layout/AppShell';
+import { PageTransition } from '../components/effects/PageTransition';
+import { useNavigationStore } from '../store/useNavigationStore';
+import { HomePage } from '../pages/Home';
+import { MyGamesPage } from '../pages/MyGames';
+import { DiscoverPage } from '../pages/Discover';
+import { SocialPage } from '../pages/Social';
+import { AudioStudioPage } from '../pages/AudioStudio';
+import { CapturePage } from '../pages/Capture';
+import { PerformancePage } from '../pages/Performance';
+import { DownloadsPage } from '../pages/Downloads';
+import { SettingsPage } from '../pages/Settings';
+import type { PageId } from './router';
 
-export const App: React.FC = () => {
-  const { activeTab, loadGames } = useGameStore();
+function renderPage(page: PageId, navigate: (page: PageId) => void) {
+  switch (page) {
+    case 'home':
+      return <HomePage onNavigate={navigate} />;
+    case 'games':
+      return <MyGamesPage />;
+    case 'discover':
+      return <DiscoverPage />;
+    case 'social':
+      return <SocialPage />;
+    case 'audio':
+      return <AudioStudioPage />;
+    case 'capture':
+      return <CapturePage />;
+    case 'performance':
+      return <PerformancePage />;
+    case 'downloads':
+      return <DownloadsPage />;
+    case 'settings':
+      return <SettingsPage />;
+  }
+}
 
-  useEffect(() => {
-    loadGames();
-  }, [loadGames]);
+export default function App() {
+  const { page, navigate } = useNavigationStore();
 
-  const renderActiveTab = () => {
-    switch (activeTab) {
-      case 'home':
-        return <HomePage />;
-      case 'library':
-        return <LibraryPage />;
-      case 'compatibility':
-        return <CompatibilityPage />;
-      case 'performance':
-        return <PerformancePage />;
-      case 'settings':
-      case 'routing':
-        return <SettingsPage />;
-      default:
-        return <LibraryPage />;
-    }
-  };
-
-  return <Shell>{renderActiveTab()}</Shell>;
-};
-export default App;
+  return (
+    <MotionProvider>
+      <AppShell page={page} onNavigate={navigate}>
+        <AnimatePresence mode="wait" initial={false}>
+          <PageTransition pageKey={page}>{renderPage(page, navigate)}</PageTransition>
+        </AnimatePresence>
+      </AppShell>
+    </MotionProvider>
+  );
+}

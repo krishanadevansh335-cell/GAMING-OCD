@@ -1,0 +1,9 @@
+services:
+  # PostgreSQL is intentionally external until a central service needs persistent data.
+  api:
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8080:8080"

@@ -1,3 +1,4 @@
-pub mod system;
-pub mod games;
-pub mod routing;
+#[tauri::command]
+pub fn app_version() -> &'static str {
+    "0.0.01"
+}

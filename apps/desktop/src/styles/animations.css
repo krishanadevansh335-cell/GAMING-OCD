@@ -1,0 +1,43 @@
+@keyframes gcc-ambient-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translate3d(16px, -12px, 0) scale(1.04);
+    opacity: 1;
+  }
+}
+
+@keyframes gcc-crimson-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+.gcc-ambient-green {
+  animation: gcc-ambient-drift 18s var(--ease-gcc) infinite;
+}
+
+.gcc-ambient-red {
+  animation: gcc-crimson-pulse 14s ease-in-out infinite;
+}
+
+.gcc-paused-motion *,
+[data-reduced-motion='true'] .gcc-ambient-green,
+[data-reduced-motion='true'] .gcc-ambient-red {
+  animation: none !important;
+  transition-duration: 0.01ms !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gcc-ambient-green,
+  .gcc-ambient-red {
+    animation: none !important;
+  }
+}

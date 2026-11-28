@@ -1,8 +1,8 @@
 {
-  "$schema": "https://raw.githubusercontent.com/nicepkg/tauri-schema/main/tauri.conf.json",
-  "productName": "GAMING-OCD",
-  "version": "0.1.0",
-  "identifier": "com.gamingocd.desktop",
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Gaming Control Center",
+  "version": "0.0.1",
+  "identifier": "com.gcc.desktop",
   "build": {
     "beforeDevCommand": "pnpm dev",
     "devUrl": "http://localhost:5173",
@@ -12,30 +12,28 @@
   "app": {
     "windows": [
       {
-        "title": "GAMING-OCD | Control Center",
+        "title": "GCC | Gaming Control Center",
         "width": 1280,
         "height": 800,
-        "minWidth": 960,
-        "minHeight": 600,
+        "minWidth": 480,
+        "minHeight": 480,
         "resizable": true,
         "fullscreen": false,
         "decorations": true,
         "center": true
       }
     ],
-    "security": {
-      "csp": null
-    }
+    "security": { "capabilities": ["default"] }
   },
   "bundle": {
     "active": true,
     "targets": "all",
-    "icon": [
-      "icons/32x32.png",
-      "icons/128x128.png",
-      "icons/128x128@2x.png",
-      "icons/icon.icns",
-      "icons/icon.ico"
-    ]
+    "createUpdaterArtifacts": true
+  },
+  "plugins": {
+    "updater": {
+      "endpoints": ["https://github.com/krishanadevansh335-cell/GAMING-OCD-Releases/releases/latest/download/latest.json"],
+      "pubkey": "PUBLIC_UPDATER_KEY_PLACEHOLDER"
+    }
   }
 }

@@ -1,10 +1,11 @@
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
-  "description": "Default capabilities for the GAMING-OCD control center",
+  "description": "Least-privilege capabilities for the GCC foundation shell",
   "windows": ["main"],
   "permissions": [
     "core:default",
-    "opener:default"
+    "updater:default",
+    "process:allow-restart"
   ]
 }
